@@ -1,6 +1,8 @@
 package demo;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,12 +13,16 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 
 
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
+import dev.failsafe.internal.util.Assert;
 
 public class TestCases {
     ChromeDriver driver;
@@ -53,6 +59,45 @@ public class TestCases {
         driver.manage().window().maximize();
     }
 
+
+    @Test
+    public void testCase01() throws InterruptedException{
+        System.out.println("Start TestCase01 ");  
+        double starRating=4.0;
+        driver.get("https://www.flipkart.com/");        
+        Wrappers.enterText(driver, By.xpath("//input[@name='q']"), "Washing Machine");         
+        Thread.sleep(2000);        
+        Wrappers.clickButton(driver, By.xpath("//div[@class='zg-M3Z' and text()='Popularity']"));                
+        Thread.sleep(2000);        
+        Wrappers.searchStarRating(driver, By.xpath("//div[@class='_5OesEi']//span//div"), starRating);                
+        System.out.println("End TestCase01 ");          
+    }
+
+    @Test
+    public void testCase02() throws InterruptedException{
+        System.out.println("Start TestCase02 ");   
+        driver.get("https://www.flipkart.com/");
+        Thread.sleep(2000);
+        Wrappers.enterText(driver, By.xpath("//input[@name='q']"), "iPhone");         
+        Thread.sleep(2000);                         
+        int discountpercent=17;      
+        Wrappers.printTitleandDiscount(driver, By.xpath("//div[contains(@class,'yKfJKb')]"), discountpercent);                
+        System.out.println("End TestCase02 "); 
+    }
+       
+    @Test
+    public void testCase03() throws InterruptedException{
+        System.out.println("Start TestCase03 ");   
+        driver.get("https://www.flipkart.com/");
+        Thread.sleep(2000);
+        Wrappers.enterText(driver, By.xpath("//input[@name='q']"), "Coffee Mug");         
+        Thread.sleep(2000);                        
+        Wrappers.clickButton(driver, By.xpath("//div[contains(text(),'4')]"));
+        Thread.sleep(2000);
+        Wrappers.printTitleImageURL(driver, By.xpath("//div[contains(@class,'slAVV4')]//span[@class='Wphh3N']"));        
+        System.out.println("End TestCase03 "); 
+    }
+
     @AfterTest
     public void endTest()
     {
@@ -61,3 +106,4 @@ public class TestCases {
 
     }
 }
+
