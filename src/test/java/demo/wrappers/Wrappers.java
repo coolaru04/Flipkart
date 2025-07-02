@@ -71,26 +71,31 @@ public class Wrappers {
      }
 
      public static void printTitleandDiscount(WebDriver driver, By Locator, int discount){               
-        try{
-            List<WebElement> productRowsParent=driver.findElements(Locator);
-            Map<String,String> iphoneTitleDiscountMap=new HashMap<>();
-            for(WebElement product:productRowsParent){
-                WebElement productdiscount=product.findElement(By.xpath("//div[@class='UkUFwK']/span"));
-                String discountpercent=productdiscount.getText();
-                int discountvalue=Integer.parseInt(discountpercent.replaceAll("[^\\d]",""));
-                if(discountvalue>discount){
-                    WebElement iphoneTitle=product.findElement(By.xpath(""));
-                    String iphoneTitletext=iphoneTitle.getText();
-                    iphoneTitleDiscountMap.put(discountpercent, iphoneTitletext);
-                }
-                for(Map.Entry<String,String> iphoneTitleDiscount:iphoneTitleDiscountMap.entrySet()){
-                    System.out.println("Iphone Discount Percentage :" + iphoneTitleDiscount.getKey() + " and its title is : "+iphoneTitleDiscount.getValue());
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Exception Occured : "+e.getMessage());
-        }
+         Map<String, String> iphoneTitleDiscountMap = null;
+            try {
+                List<WebElement> productRowsParent = driver.findElements(Locator);
+                iphoneTitleDiscountMap = new HashMap<>();
+                System.out.println("List size : " + productRowsParent.size());
 
+                for (WebElement product : productRowsParent) {
+                    WebElement productdiscount = product.findElement(By.xpath(".//div[@class='UkUFwK']//span"));
+                    String discountpercent = productdiscount.getText();
+                    int discountvalue = Integer.parseInt(discountpercent.replaceAll("[^\\d]", ""));
+                    //System.out.println("discount value : "+discountvalue);
+                    if (discountvalue > discount) {
+                        WebElement iphoneTitle = product.findElement(By.xpath(".//div[@class='KzDlHZ']"));
+                        String iphoneTitletext = iphoneTitle.getText();
+                        iphoneTitleDiscountMap.put(discountpercent, iphoneTitletext);
+                    }
+
+                }
+            } catch (Exception e) {
+                System.out.println("Exception Occured : " + e.getMessage());
+            }
+
+            for (Map.Entry<String, String> iphoneTitleDiscount : iphoneTitleDiscountMap.entrySet()) {
+                System.out.println("Iphone Discount Percentage :" + iphoneTitleDiscount.getKey() + " and its title is : " + iphoneTitleDiscount.getValue());
+            }
      }
 
      public static void printTitleImageURL(WebDriver driver, By Locator){               
