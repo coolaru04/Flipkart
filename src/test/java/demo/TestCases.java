@@ -81,7 +81,7 @@ public class TestCases {
         Wrappers.enterText(driver, By.xpath("//input[@name='q']"), "iPhone");         
         Thread.sleep(2000);                         
         int discountpercent=17;      
-        Wrappers.printTitleandDiscount(driver, By.xpath("//div[contains(@class,'yKfJKb')]"), discountpercent);                
+        Wrappers.printTitleandDiscount(driver, By.xpath("//div[contains(@class,'yKfJKb')]"), discountpercent);
         System.out.println("End TestCase02 "); 
     }
        
